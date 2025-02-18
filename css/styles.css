@@ -1,0 +1,304 @@
+/* Variáveis globais */
+:root {
+    --primary-color: #7063f0;
+    --secondary-color: #4d4bb2;
+    --accent-color: #ff7029;
+    --accent-color-dark: #ff4e00;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --text-color: #1c1f26;
+    --bg-color: #ffffff;
+    --gray-100: #f8f8f8;
+    --gray-200: #eaeaea;
+    --gray-300: #d4d4d4;
+    --border-radius: 0.375rem;
+    --transition: all 0.3s ease;
+    --font-family: 'Exo', sans-serif;
+}
+
+/* Reset e estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    line-height: 1.5;
+}
+
+/* Utilitários */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Componentes */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: var(--transition);
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn-accent {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.btn-accent:hover {
+    background-color: var(--accent-color-dark);
+}
+
+/* Cards */
+.card {
+    background: var(--bg-color);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 1px 3px rgba(28, 31, 38, 0.1);
+    transition: var(--transition);
+}
+
+.card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--gray-200);
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(112, 99, 240, 0.25);
+}
+
+/* Tabelas */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.table th {
+    background-color: var(--gray-100);
+    font-weight: 600;
+    text-align: left;
+}
+
+/* Alertas */
+.alert {
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: none;
+    margin-bottom: 1rem;
+}
+
+.alert-success {
+    background-color: #e8fff3;
+    color: var(--success-color);
+}
+
+.alert-warning {
+    background-color: #fff7e6;
+    color: var(--warning-color);
+}
+
+.alert-danger {
+    background-color: #fff1f1;
+    color: var(--danger-color);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+/* Dashboard específico */
+.dashboard-card {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.dashboard-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.stat-card {
+    background: var(--bg-color);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 1px 3px rgba(28, 31, 38, 0.1);
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+.stat-label {
+    color: var(--text-color);
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+/* Classes de cores personalizadas */
+.bg-custom-primary {
+    background-color: var(--primary-color);
+}
+
+.bg-custom-secondary {
+    background-color: var(--secondary-color);
+}
+
+.bg-custom-accent {
+    background-color: var(--accent-color);
+}
+
+.text-custom-primary {
+    color: var(--primary-color);
+}
+
+.text-custom-secondary {
+    color: var(--secondary-color);
+}
+
+.text-custom-accent {
+    color: var(--accent-color);
+}
+
+/* Navegação */
+.nav-link.active {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.nav-link:hover {
+    background-color: var(--gray-100);
+    color: var(--primary-color);
+}
+
+/* Botões customizados */
+.btn-custom-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.btn-custom-primary:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-custom-accent {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.btn-custom-accent:hover {
+    background-color: var(--accent-color-dark);
+    color: white;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: var(--gray-100) !important;
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+/* Utilitários */
+.shadow-sm {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Animações */
+.transition {
+    transition: var(--transition);
+} 

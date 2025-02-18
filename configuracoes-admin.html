@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Sistema de Gestão de Estoque</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        :root {
+            --primary-color: #7063f0;
+            --secondary-color: #4d4bb2;
+            --accent-color: #ff7029;
+            --accent-color-dark: #ff4e00;
+            --text-color: #1c1f26;
+            --font-family: 'Exo', sans-serif;
+        }
+        
+        /* Aplicação global da fonte */
+        html, body {
+            font-family: var(--font-family) !important;
+        }
+        
+        .bg-custom-primary {
+            background-color: var(--primary-color);
+        }
+
+        .sidebar {
+            min-height: 100vh;
+            background-color: var(--gray-100);
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(112, 99, 240, 0.1);
+            color: var(--primary-color);
+        }
+
+        .nav-link.active {
+            background-color: var(--primary-color);
+            color: white !important;
+        }
+
+        .config-card {
+            transition: transform 0.3s ease;
+        }
+
+        .config-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn-custom-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-custom-primary:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-custom-accent {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-custom-accent:hover {
+            background-color: var(--accent-color-dark);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar p-3">
+                <h5 class="mb-4">Painel Administrativo</h5>
+                <div class="nav flex-column">
+                    <a class="nav-link mb-2 rounded" onclick="window.location.href='dashboard-admin.html'">
+                        <i class="bi bi-speedometer2 me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link mb-2 rounded" onclick="window.location.href='produtos-admin.html'">
+                        <i class="bi bi-box-seam me-2"></i>Produtos
+                    </a>
+                    <a class="nav-link mb-2 rounded" onclick="window.location.href='transferencias-admin.html'">
+                        <i class="bi bi-arrow-left-right me-2"></i>Transferências
+                    </a>
+                    <a class="nav-link mb-2 rounded" onclick="window.location.href='usuarios-admin.html'">
+                        <i class="bi bi-people me-2"></i>Usuários
+                    </a>
+                    <a class="nav-link mb-2 rounded" onclick="window.location.href='relatorios-admin.html'">
+                        <i class="bi bi-graph-up me-2"></i>Relatórios
+                    </a>
+                    <a class="nav-link active mb-2 rounded" onclick="window.location.href='configuracoes-admin.html'">
+                        <i class="bi bi-gear me-2"></i>Configurações
+                    </a>
+                    <a class="nav-link mb-2 rounded text-danger" onclick="fazerLogout()">
+                        <i class="bi bi-box-arrow-right me-2"></i>Sair
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 p-4">
+                <h2 class="mb-4">Configurações do Sistema</h2>
+
+                <!-- Configurações Gerais -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Configurações Gerais</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="configuracoesGerais">
+                            <div class="mb-3">
+                                <label class="form-label">Nome da Empresa</label>
+                                <input type="text" class="form-control" value="StockControl" id="nomeEmpresa">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">E-mail de Contato</label>
+                                <input type="email" class="form-control" value="contato@stockcontrol.com" id="emailContato">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Limite de Estoque Baixo</label>
+                                <input type="number" class="form-control" value="50" id="limiteEstoqueBaixo">
+                                <small class="text-muted">Produtos com quantidade abaixo deste valor serão marcados como "Estoque Baixo"</small>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Configurações de Notificações -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Configurações de Notificações</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="configuracoesNotificacoes">
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="notificacoesEstoqueBaixo" checked>
+                                    <label class="form-check-label">Notificar quando o estoque estiver baixo</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="notificacoesMovimentacoes" checked>
+                                    <label class="form-check-label">Notificar sobre movimentações de estoque</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="notificacoesRelatorios">
+                                    <label class="form-check-label">Receber relatórios diários por e-mail</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Configurações de Backup -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Backup e Restauração</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <button class="btn btn-primary me-2">
+                                <i class="bi bi-download me-2"></i>Fazer Backup
+                            </button>
+                            <button class="btn btn-outline-primary">
+                                <i class="bi bi-upload me-2"></i>Restaurar Backup
+                            </button>
+                        </div>
+                        <small class="text-muted">Último backup realizado: Nunca</small>
+                    </div>
+                </div>
+
+                <!-- Botões de Ação -->
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-secondary me-2">Cancelar</button>
+                    <button class="btn btn-primary" onclick="salvarConfiguracoes()">Salvar Alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="db.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function fazerLogout() {
+            localStorage.removeItem('usuarioLogado');
+            window.location.href = 'index.html';
+        }
+
+        function salvarConfiguracoes() {
+            // Aqui você pode implementar a lógica para salvar as configurações
+            alert('Configurações salvas com sucesso!');
+        }
+
+        // Verificar autenticação
+        document.addEventListener('DOMContentLoaded', function() {
+            const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+            if (!usuarioLogado || usuarioLogado.tipo !== 'admin') {
+                window.location.href = 'index.html';
+                return;
+            }
+        });
+    </script>
+</body>
+</html> 
