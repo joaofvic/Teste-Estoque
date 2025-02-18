@@ -489,26 +489,79 @@
     <script type="module" src="js/db.js"></script>
     <script type="module">
         document.addEventListener('DOMContentLoaded', function() {
+            // Verificar login existente
             try {
                 const token = localStorage.getItem('token');
                 const usuario = JSON.parse(localStorage.getItem('usuario'));
                 console.log('Verificando login:', usuario);
                 
                 if (token && usuario) {
-                    if (usuario.tipo === 'admin') {
-                        console.log('Redirecionando para dashboard admin...');
-                        window.location.href = 'dashboard-admin.html';
-                    } else {
-                        console.log('Redirecionando para dashboard user...');
-                        window.location.href = 'dashboard-usuario.html';
-                    }
+                    redirecionarUsuario(usuario);
                 }
             } catch (error) {
                 console.error('Erro ao verificar login:', error);
                 localStorage.removeItem('token');
                 localStorage.removeItem('usuario');
             }
+
+            // Formulário de login do usuário
+            const userLoginForm = document.getElementById('userLoginForm');
+            userLoginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const email = document.getElementById('userEmail').value;
+                const senha = document.getElementById('userPassword').value;
+                
+                try {
+                    const resultado = await window.dbFunctions.autenticar(email, senha);
+                    console.log('Login bem-sucedido:', resultado);
+                    
+                    // Salvar dados do usuário
+                    localStorage.setItem('token', resultado.id); // Usando o ID como token
+                    localStorage.setItem('usuario', JSON.stringify(resultado));
+                    
+                    // Redirecionar
+                    redirecionarUsuario(resultado);
+                } catch (error) {
+                    console.error('Erro no login:', error);
+                    alert('Erro no login: ' + error.message);
+                }
+            });
+
+            // Formulário de login do admin
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            adminLoginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const email = document.getElementById('adminEmail').value;
+                const senha = document.getElementById('adminPassword').value;
+                
+                try {
+                    const resultado = await window.dbFunctions.autenticar(email, senha);
+                    console.log('Login bem-sucedido:', resultado);
+                    
+                    if (resultado.tipo !== 'admin') {
+                        throw new Error('Este usuário não é um administrador');
+                    }
+                    
+                    // Salvar dados do usuário
+                    localStorage.setItem('token', resultado.id); // Usando o ID como token
+                    localStorage.setItem('usuario', JSON.stringify(resultado));
+                    
+                    // Redirecionar
+                    redirecionarUsuario(resultado);
+                } catch (error) {
+                    console.error('Erro no login:', error);
+                    alert('Erro no login: ' + error.message);
+                }
+            });
         });
+
+        function redirecionarUsuario(usuario) {
+            if (usuario.tipo === 'admin') {
+                window.location.href = 'dashboard-admin.html';
+            } else {
+                window.location.href = 'dashboard-usuario.html';
+            }
+        }
     </script>
 </body>
 </html>
